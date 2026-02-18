@@ -1,0 +1,696 @@
+===============================================
+  AgriAdvisor - Technology Stack & Components
+  Complete List of Technologies Used
+===============================================
+
+📋 PROJECT OVERVIEW
+===============================================
+
+Project Name: AgriAdvisor
+Version: 2.0
+Type: Full-Stack Web Application
+Purpose: Smart Farming Management System
+Architecture: Client-Server (Frontend-Backend)
+Database: MySQL (Fully Database-Driven)
+Status: Production Ready ✅
+
+
+===============================================
+  FRONTEND TECHNOLOGIES
+===============================================
+
+🎨 Core Technologies:
+--------------------
+1. HTML5
+   - Semantic markup
+   - Modern web standards
+   - Responsive structure
+
+2. CSS3
+   - Custom styling
+   - Gradient backgrounds
+   - Animations and transitions
+   - Glassmorphism effects
+
+3. JavaScript (ES6+)
+   - Async/await for API calls
+   - DOM manipulation
+   - Event handling
+   - Local storage management
+
+🎨 CSS Framework:
+-----------------
+- Tailwind CSS 3.x (CDN)
+  - Utility-first CSS framework
+  - Responsive design
+  - Custom color schemes
+  - Component styling
+
+🌐 Frontend Features:
+---------------------
+- Single Page Application (SPA) behavior
+- Multi-language support (English, Hindi, Gujarati)
+- Video backgrounds
+- Modal dialogs
+- Form validation
+- Password visibility toggle
+- OTP input handling
+- JWT token management
+- Responsive design (mobile-friendly)
+
+
+===============================================
+  BACKEND TECHNOLOGIES
+===============================================
+
+🐍 Programming Language:
+------------------------
+- Python 3.8+ (Recommended: 3.14.2)
+  - Modern Python features
+  - Type hints support
+  - Async capabilities
+
+🌐 Web Framework:
+-----------------
+- Flask 3.0.0
+  - Lightweight web framework
+  - RESTful API design
+  - Route handling
+  - Request/response processing
+  - Static file serving
+
+📦 Flask Extensions:
+--------------------
+1. Flask-CORS 4.0.0
+   - Cross-Origin Resource Sharing
+   - API access control
+   - Security headers
+
+2. Flask-SQLAlchemy 3.0.5
+   - ORM (Object-Relational Mapping)
+   - Database abstraction
+   - Query builder
+   - Relationship management
+
+🗄️ Database:
+-------------
+1. MySQL 5.7+ (via XAMPP 8.2.12)
+   - Relational database
+   - ACID compliance
+   - Transaction support
+   - Full-text search
+
+2. PyMySQL 1.1.0
+   - Pure Python MySQL client
+   - Database connector
+   - Connection pooling
+
+3. SQLAlchemy 1.4.51
+   - Database ORM
+   - Query abstraction
+   - Model definitions
+   - Migration support
+
+🔐 Security & Authentication:
+------------------------------
+1. PyJWT 2.8.0
+   - JSON Web Tokens
+   - Stateless authentication
+   - Token generation/verification
+   - Expiration handling
+
+2. bcrypt 4.1.2
+   - Password hashing
+   - Salt generation
+   - Secure password storage
+   - Brute-force protection
+
+3. cryptography 41.0.7
+   - Encryption utilities
+   - Secure random generation
+   - SSL/TLS support
+
+📧 Email Services:
+------------------
+1. smtplib (Python built-in)
+   - SMTP protocol
+   - Email sending
+   - Gmail integration
+
+2. email.mime (Python built-in)
+   - Email formatting
+   - HTML emails
+   - Multipart messages
+
+✅ Validation:
+--------------
+- email-validator 2.1.0
+  - Email format validation
+  - Domain verification
+  - Syntax checking
+
+🌐 HTTP Client:
+---------------
+- requests 2.31.0
+  - HTTP requests
+  - API integration
+  - External service calls
+  - Weather API
+  - Market price API
+
+⚙️ Configuration:
+------------------
+- python-dotenv 1.0.0
+  - Environment variables
+  - Configuration management
+  - Secrets handling
+  - .env file support
+
+
+===============================================
+  DATABASE ARCHITECTURE
+===============================================
+
+Database Name: agriadvisor
+Database Type: MySQL (Relational)
+Character Set: utf8mb4
+Collation: utf8mb4_unicode_ci
+
+📊 Database Tables (8):
+-----------------------
+
+1. users
+   - User accounts and profiles
+   - Authentication credentials
+   - User metadata
+   - Columns: user_id, username, email, password_hash, 
+             phone, full_name, location, is_verified, 
+             is_active, created_at, last_login
+
+2. otps
+   - One-Time Password verification
+   - Email/mobile verification codes
+   - Password reset codes
+   - Columns: otp_id, identifier, otp_code, purpose, 
+             attempts, created_at, expires_at, is_used
+
+3. crops
+   - Crop management records
+   - Planting and harvest tracking
+   - Yield predictions
+   - Columns: crop_id, user_id, crop_name, crop_type, 
+             farm_area, planting_date, harvest_date, 
+             expected_yield, actual_yield, status, 
+             location, notes, created_at, updated_at
+
+4. irrigation_records
+   - Water usage tracking
+   - Irrigation schedules
+   - Cost management
+   - Columns: irrigation_id, user_id, crop_id, crop_name, 
+             irrigation_date, water_used, duration, 
+             method, cost, created_at
+
+5. farm_transactions
+   - Financial records
+   - Income and expenses
+   - Transaction history
+   - Columns: transaction_id, user_id, transaction_type, 
+             category, amount, transaction_date, 
+             description, auto_generated, source_id, 
+             created_at
+
+6. market_prices
+   - Commodity prices
+   - Market data
+   - Price trends
+   - Columns: price_id, commodity, category, state, 
+             market, price, unit, price_date, source, 
+             created_at
+
+7. login_history
+   - User activity logs
+   - Login attempts
+   - Security audit trail
+   - Columns: history_id, user_id, email, username, 
+             action, success, ip_address, user_agent, 
+             created_at
+
+8. equipment_bookings
+   - Equipment rental system
+   - Booking management
+   - Rental tracking
+   - Columns: booking_id, user_id, equipment_name, 
+             start_date, return_date, num_days, 
+             total_amount, address, phone, email, 
+             status, created_at
+
+🔗 Relationships:
+-----------------
+- users → crops (one-to-many)
+- users → irrigation_records (one-to-many)
+- users → farm_transactions (one-to-many)
+- users → equipment_bookings (one-to-many)
+- crops → irrigation_records (one-to-many)
+
+
+===============================================
+  API ARCHITECTURE
+===============================================
+
+API Type: RESTful API
+Base URL: http://localhost:5000/api
+Format: JSON
+Authentication: JWT Bearer Token
+
+📡 API Endpoints (20 Total):
+-----------------------------
+
+Authentication APIs (8):
+  POST /api/auth/check-user
+  POST /api/auth/send-otp
+  POST /api/auth/verify-otp
+  POST /api/auth/register
+  POST /api/auth/login
+  POST /api/auth/forgot-password
+  POST /api/auth/reset-password
+  GET  /api/user/profile
+
+Crop Management APIs (5):
+  GET    /api/crops
+  POST   /api/crops
+  PUT    /api/crops/<id>
+  DELETE /api/crops/<id>
+  POST   /api/crop-recommendation
+
+Irrigation APIs (2):
+  GET  /api/irrigation
+  POST /api/irrigation
+
+Service APIs (3):
+  POST /api/equipment/book
+  GET  /api/market-prices
+  GET  /api/government-schemes
+
+Analysis APIs (2):
+  POST /api/pest-detection/analyze
+  GET  /api/admin/stats
+
+
+===============================================
+  EXTERNAL APIS & SERVICES
+===============================================
+
+1. Open-Meteo Weather API
+   - Weather forecasts
+   - Temperature data
+   - Rainfall predictions
+   - Free tier usage
+
+2. Government of India Data API
+   - Market prices
+   - Commodity rates
+   - Agricultural data
+   - API Key: 579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b
+
+3. Gmail SMTP
+   - Email delivery
+   - OTP sending
+   - Notifications
+   - Server: smtp.gmail.com:587
+
+
+===============================================
+  DEVELOPMENT TOOLS
+===============================================
+
+🛠️ Package Manager:
+--------------------
+- pip (Python Package Installer)
+  - Dependency management
+  - Package installation
+  - Version control
+
+📝 Code Editor (Recommended):
+------------------------------
+- Visual Studio Code
+- PyCharm
+- Sublime Text
+- Notepad++
+
+🗄️ Database Management:
+------------------------
+1. phpMyAdmin (Included in XAMPP)
+   - Web-based interface
+   - Database viewer
+   - Query execution
+   - Table management
+
+2. MySQL Workbench (Optional)
+   - Visual database design
+   - Query builder
+   - Database administration
+
+🌐 Web Browser (Testing):
+--------------------------
+- Google Chrome (Recommended)
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
+
+
+===============================================
+  SERVER & HOSTING
+===============================================
+
+Development Server:
+  - Flask built-in server
+  - Host: 0.0.0.0
+  - Port: 5000
+  - Debug mode: Enabled
+
+Production Server (Recommended):
+  - Gunicorn (WSGI server)
+  - uWSGI
+  - Nginx (Reverse proxy)
+  - Apache with mod_wsgi
+
+Database Server:
+  - MySQL via XAMPP
+  - Port: 3306
+  - Host: localhost
+
+
+===============================================
+  FILE STRUCTURE
+===============================================
+
+Root Directory:
+  ├── backend/
+  │   ├── app_mysql.py          (Main application - 20 APIs)
+  │   ├── config.py             (Configuration)
+  │   ├── database.py           (DB initialization)
+  │   ├── models.py             (Database models - 8 tables)
+  │   ├── crop_recommendation_helper.py
+  │   ├── equipment_reminder_scheduler.py
+  │   ├── .env                  (Environment variables)
+  │   ├── .env.example          (Template)
+  │   └── requirements_mysql.txt (Dependencies)
+  │
+  ├── frontend/
+  │   ├── index.html            (Login/Register)
+  │   ├── home.html             (Landing page)
+  │   ├── dashboard_simple.html (Main dashboard)
+  │   ├── crop_management.html
+  │   ├── crop_recommendation.html
+  │   ├── irrigation_management.html
+  │   ├── equipment_rental.html
+  │   ├── market_prices.html
+  │   ├── government_schemes.html
+  │   ├── pest_detection.html
+  │   ├── soil_analysis.html
+  │   ├── weather_forecast.html
+  │   ├── farm_analytics.html
+  │   ├── styles.css            (Custom styles)
+  │   ├── enhanced-styles.css
+  │   └── language.js           (Multi-language)
+  │
+  ├── ONE_CLICK_INSTALL.bat     (Complete auto installer)
+  ├── INSTALL_REQUIREMENTS.bat  (Download Python & XAMPP)
+  ├── COMPLETE_MYSQL_SETUP.bat  (All-in-one setup & start)
+  ├── START_SERVER.bat          (Daily use starter)
+  │
+  ├── README.md                 (Project overview)
+  ├── FINAL_SUMMARY.txt         (Complete documentation)
+  ├── QUICK_START_GUIDE.txt     (Quick reference)
+  ├── INSTALLER_README.txt      (Installer guide)
+  └── TECHNOLOGY_STACK.txt      (This file)
+
+
+===============================================
+  FEATURES IMPLEMENTED
+===============================================
+
+✅ User Management:
+  - Registration with email OTP
+  - Login with JWT authentication
+  - Password reset
+  - Profile management
+  - Activity logging
+
+✅ Crop Management:
+  - Add/Edit/Delete crops
+  - Track planting dates
+  - Monitor harvest dates
+  - Yield predictions
+  - Crop health status
+
+✅ AI Recommendations:
+  - Soil-based recommendations
+  - Weather-based suggestions
+  - Season-appropriate crops
+  - Budget considerations
+  - 12+ crop varieties
+
+✅ Irrigation Management:
+  - Water usage tracking
+  - Irrigation schedules
+  - Method tracking (Drip, Sprinkler, etc.)
+  - Cost calculation
+  - Efficiency monitoring
+
+✅ Equipment Rental:
+  - Equipment booking
+  - Date management
+  - Cost calculation
+  - Email confirmations
+  - Booking history
+
+✅ Market Intelligence:
+  - Real-time market prices
+  - Government data integration
+  - State-wise prices
+  - Commodity tracking
+  - Price trends
+
+✅ Government Schemes:
+  - PM-KISAN information
+  - Subsidy schemes
+  - Loan programs
+  - Insurance schemes
+  - Training programs
+
+✅ Pest Detection:
+  - Pest identification
+  - Disease recognition
+  - Treatment recommendations
+  - Prevention tips
+  - Severity assessment
+
+✅ Analytics:
+  - User statistics
+  - Crop analytics
+  - Financial tracking
+  - Activity monitoring
+  - Database health
+
+
+===============================================
+  SECURITY FEATURES
+===============================================
+
+🔐 Authentication:
+  - JWT token-based auth
+  - Secure password hashing (bcrypt)
+  - OTP verification
+  - Session management
+  - Token expiration
+
+🛡️ Data Protection:
+  - SQL injection prevention (ORM)
+  - XSS protection
+  - CSRF protection
+  - Input validation
+  - Email validation
+
+🔒 Password Security:
+  - Minimum 6 characters
+  - Bcrypt hashing
+  - Salt generation
+  - No plain text storage
+
+📧 Email Security:
+  - Gmail App Password
+  - TLS encryption
+  - SMTP authentication
+  - Secure connections
+
+
+===============================================
+  PERFORMANCE OPTIMIZATIONS
+===============================================
+
+⚡ Backend:
+  - Database connection pooling
+  - Query optimization
+  - Indexed columns
+  - Lazy loading
+  - Caching support
+
+⚡ Frontend:
+  - CDN for frameworks
+  - Minified assets
+  - Lazy loading
+  - Local storage caching
+  - Optimized images
+
+⚡ Database:
+  - Indexed foreign keys
+  - Optimized queries
+  - Connection reuse
+  - Transaction batching
+
+
+===============================================
+  BROWSER COMPATIBILITY
+===============================================
+
+✅ Fully Supported:
+  - Google Chrome 90+
+  - Mozilla Firefox 88+
+  - Microsoft Edge 90+
+  - Safari 14+
+  - Opera 76+
+
+📱 Mobile Browsers:
+  - Chrome Mobile
+  - Safari iOS
+  - Samsung Internet
+  - Firefox Mobile
+
+
+===============================================
+  SYSTEM REQUIREMENTS
+===============================================
+
+Minimum:
+  - Windows 7/8/10/11 (64-bit)
+  - 2GB RAM
+  - 2GB free disk space
+  - Python 3.8+
+  - MySQL 5.7+
+
+Recommended:
+  - Windows 10/11 (64-bit)
+  - 4GB RAM
+  - 5GB free disk space
+  - Python 3.14.2
+  - MySQL 8.0+
+  - SSD storage
+
+
+===============================================
+  DEVELOPMENT ENVIRONMENT
+===============================================
+
+IDE: Visual Studio Code / PyCharm
+Python: 3.14.2
+MySQL: 8.2.12 (via XAMPP)
+Browser: Google Chrome
+OS: Windows 10/11
+
+
+===============================================
+  DEPLOYMENT OPTIONS
+===============================================
+
+Development:
+  - Flask built-in server
+  - SQLite (optional)
+  - Debug mode enabled
+
+Production:
+  - Gunicorn/uWSGI
+  - Nginx reverse proxy
+  - MySQL production server
+  - SSL/TLS certificates
+  - Environment variables
+  - Logging and monitoring
+
+
+===============================================
+  VERSION CONTROL
+===============================================
+
+Recommended:
+  - Git for version control
+  - GitHub/GitLab for hosting
+  - .gitignore for sensitive files
+  - Branch strategy (main, dev, feature)
+
+
+===============================================
+  TESTING
+===============================================
+
+Backend Testing:
+  - Unit tests (pytest)
+  - API testing (Postman)
+  - Database testing
+  - Integration tests
+
+Frontend Testing:
+  - Manual testing
+  - Browser compatibility
+  - Responsive design testing
+  - User acceptance testing
+
+
+===============================================
+  DOCUMENTATION FILES
+===============================================
+
+📚 Available Documentation:
+  - README.md                 (Overview)
+  - FINAL_SUMMARY.txt        (Complete guide)
+  - QUICK_START_GUIDE.txt    (Quick reference)
+  - INSTALLER_README.txt     (Installer guide)
+  - TECHNOLOGY_STACK.txt     (This file)
+
+
+===============================================
+  LICENSE & CREDITS
+===============================================
+
+Project: AgriAdvisor
+Version: 2.0
+Status: Production Ready
+License: [Your License Here]
+Created: 2026
+Purpose: Smart Farming Management
+
+
+===============================================
+  FUTURE ENHANCEMENTS (Possible)
+===============================================
+
+🚀 Potential Features:
+  - Mobile app (React Native)
+  - Real-time notifications
+  - Weather alerts
+  - Crop disease AI model
+  - Marketplace integration
+  - Community forum
+  - Video tutorials
+  - Voice commands
+  - Offline mode
+  - Data export (PDF/Excel)
+
+
+===============================================
+
+🌾 AgriAdvisor - Empowering Farmers with Technology
+
+Built with: Python, Flask, MySQL, JavaScript, HTML5, CSS3
+
+===============================================

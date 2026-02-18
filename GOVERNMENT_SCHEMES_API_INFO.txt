@@ -1,0 +1,198 @@
+═══════════════════════════════════════════════════════════════════════════
+                    GOVERNMENT SCHEMES - API & FILTERING
+═══════════════════════════════════════════════════════════════════════════
+
+
+STATUS: ✅ FIXED
+
+═══════════════════════════════════════════════════════════════════════════
+                         API INFORMATION
+═══════════════════════════════════════════════════════════════════════════
+
+API ENDPOINT:
+- URL: http://localhost:5000/api/government-schemes
+- Method: GET
+- Authentication: Not required (free feature)
+
+API RESPONSE FORMAT:
+{
+    "success": true,
+    "schemes": [
+        {
+            "id": 1,
+            "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+            "category": "subsidy",
+            "ministry": "Ministry of Agriculture",
+            "launched": "2019",
+            "benefits": "₹6,000 per year in three equal installments",
+            "eligibility": "All landholding farmer families",
+            "website": "https://pmkisan.gov.in/",
+            "helpline": "155261",
+            "status": "Active",
+            "budget": "₹75,000 crore",
+            "beneficiaries": "11+ crore farmers"
+        },
+        ...
+    ],
+    "total": 10
+}
+
+SCHEME CATEGORIES:
+1. subsidy - Financial subsidies and direct benefits
+2. loan - Credit facilities and loan schemes
+3. insurance - Crop insurance programs
+4. training - Training and capacity building
+5. equipment - Market infrastructure and equipment
+
+SCHEME STATUS:
+- "Active" - Currently running schemes (shown to users)
+- "Inactive" - Discontinued schemes (hidden from users)
+
+═══════════════════════════════════════════════════════════════════════════
+                         WHAT WAS FIXED
+═══════════════════════════════════════════════════════════════════════════
+
+ISSUE:
+- Frontend was showing all schemes regardless of status
+- Counts were not filtering by active status
+- No distinction between active and inactive schemes
+
+SOLUTION:
+1. Added status filtering in loadGovernmentSchemes()
+   - Only schemes with status === "Active" are loaded
+   - Filter applied: .filter(scheme => scheme.status.toLowerCase() === 'active')
+
+2. Updated fallback data to include status field
+   - All fallback schemes marked as "Active"
+   - Same filtering logic applied to fallback data
+
+3. Dynamic count updates
+   - Stats now count only active schemes
+   - Category counts (subsidy, loan, insurance, training) update automatically
+   - Total active schemes count updates in header
+
+═══════════════════════════════════════════════════════════════════════════
+                         CURRENT ACTIVE SCHEMES (10)
+═══════════════════════════════════════════════════════════════════════════
+
+SUBSIDY SCHEMES (3):
+1. PM-KISAN - ₹6,000/year direct benefit
+2. PKVY - ₹50,000/hectare for organic farming
+3. PMKSY - Irrigation subsidy (drip/sprinkler)
+
+LOAN SCHEMES (3):
+1. Kisan Credit Card (KCC) - Up to ₹3 lakh at 7% interest
+2. Agriculture Infrastructure Fund - ₹1 lakh crore fund
+3. Modified Interest Subvention Scheme - 2% interest subvention
+
+INSURANCE SCHEMES (1):
+1. PMFBY - Crop insurance with 90% premium subsidy
+
+TRAINING SCHEMES (2):
+1. Soil Health Card Scheme - Free soil testing
+2. National Mission for Sustainable Agriculture - Training programs
+
+EQUIPMENT/MARKET SCHEMES (1):
+1. e-NAM - Online agricultural commodity trading
+
+═══════════════════════════════════════════════════════════════════════════
+                         HOW IT WORKS NOW
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 1: Load schemes from API
+- Fetch from http://localhost:5000/api/government-schemes
+- Filter: Only schemes where status === "Active"
+- Map to frontend format with icons and descriptions
+
+STEP 2: Display schemes
+- Show only active schemes in grid
+- Each scheme card shows:
+  * Category badge
+  * Benefits
+  * Eligibility
+  * Helpline (if available)
+  * Official website link
+
+STEP 3: Filter functionality
+- Users can filter by category (subsidy/loan/insurance/training/equipment)
+- Users can filter by state (all India or specific states)
+- Filtered results still show only active schemes
+- Count updates dynamically: "X schemes available"
+
+═══════════════════════════════════════════════════════════════════════════
+                         ADDING NEW SCHEMES
+═══════════════════════════════════════════════════════════════════════════
+
+TO ADD A NEW SCHEME:
+
+1. Open backend/app_mysql.py
+2. Find the government-schemes endpoint (around line 701)
+3. Add new scheme to the schemes array:
+
+{
+    "id": 11,
+    "name": "New Scheme Name",
+    "category": "subsidy",  # or loan, insurance, training, equipment
+    "ministry": "Ministry Name",
+    "launched": "2026",
+    "benefits": "Description of benefits",
+    "eligibility": "Who can apply",
+    "website": "https://scheme-website.gov.in/",
+    "helpline": "1800-XXX-XXXX",
+    "status": "Active",  # or "Inactive" to hide
+    "budget": "₹X crore",
+    "beneficiaries": "X farmers/hectares"
+}
+
+4. Save and restart server
+5. Frontend will automatically:
+   - Load the new scheme
+   - Update counts
+   - Display in appropriate category
+
+TO DEACTIVATE A SCHEME:
+- Change "status": "Active" to "status": "Inactive"
+- Scheme will be hidden from frontend
+- Counts will update automatically
+
+═══════════════════════════════════════════════════════════════════════════
+                         TESTING CHECKLIST
+═══════════════════════════════════════════════════════════════════════════
+
+✅ Only active schemes are displayed
+✅ Inactive schemes are hidden
+✅ Total count shows only active schemes
+✅ Category counts show only active schemes
+✅ Header shows correct "Active Schemes" count
+✅ Filter by category works correctly
+✅ Filter by state works correctly
+✅ Scheme count updates when filtering
+✅ API fallback works if server is down
+✅ Console logs show "X active schemes loaded"
+
+═══════════════════════════════════════════════════════════════════════════
+                         CONSOLE LOGS
+═══════════════════════════════════════════════════════════════════════════
+
+When page loads successfully:
+"Loaded 10 active schemes from API"
+"Stats updated - Active schemes only: {total: 10, subsidy: 3, loan: 3, ...}"
+
+When API fails:
+"Error loading schemes from API: [error message]"
+"Loaded 10 active schemes from fallback data"
+
+═══════════════════════════════════════════════════════════════════════════
+                         SUMMARY
+═══════════════════════════════════════════════════════════════════════════
+
+✅ API: http://localhost:5000/api/government-schemes
+✅ Filtering: Only schemes with status === "Active" are shown
+✅ Counts: Dynamically updated based on active schemes only
+✅ Categories: subsidy (3), loan (3), insurance (1), training (2), equipment (1)
+✅ Total: 10 active schemes currently available
+
+The system now correctly filters and displays only active government schemes,
+with accurate counts that update automatically based on the scheme status.
+
+═══════════════════════════════════════════════════════════════════════════
